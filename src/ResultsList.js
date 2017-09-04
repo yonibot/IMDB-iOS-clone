@@ -28,7 +28,7 @@ class ResultsList extends Component {
           ) : 
         <FlatList
           data={this.props.movies.map(x=> {
-            return {...x, key: x.id}
+            return {...x, key: x.uuid}
             })}
           renderItem={(i=>{
             return (

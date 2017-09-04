@@ -1,6 +1,7 @@
 import {observable, computed, action, autorun, autorunAsync} from 'mobx';
 import {observer, observe} from 'mobx-react';
 import TmdbClient from '../Api/TmdbClient';
+import Movie from '../models/Movie';
 
 class DataStore{
 	@observable searchText = '';
@@ -15,10 +16,20 @@ class DataStore{
 			this.querying = true;
 			const results = await TmdbClient.fetchMovies(this.searchText);
 			if (results !== undefined) {
-				this.movieResults = results;
+				this.movieResults = [];
+				for (const result of results) {
+					newMovie = new Movie(result);
+					this.movieResults.push(newMovie);
+				}
 			}
 			this.querying = false;
 		}, 2000);
+	}
+
+	@action fetchFullMovieDetails = async (id) => {
+		const movie = await TmdbClient.fetchMovie(this.selectedMovie.id);
+		console.log(movie);
+		this.selectedMovie = new Movie(movie);
 	}
 
 	@action updateSearchText = (newText) => {
