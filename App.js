@@ -4,19 +4,29 @@ import {
 	View,
 	Text
 } from 'react-native';
-import {Provider} from 'mobx-react';
+import {Provider, observer} from 'mobx-react';
 import Search from './src/Search';
 import DataStore from './src/Stores/DataStore';
+import MovieScreen from './src/MovieScreen';
+import {observable} from 'mobx';
+import {StackNavigator} from 'react-navigation';
 
+console.ignoredYellowBox = ['Remote debugger'];
+
+@observer
 class App extends Component {
+  static navigationOptions = {
+    title: 'Search IMDB'
+  }
+
   render() {
     return (
-      <Provider dataStore={DataStore}>
+      <Provider dataStore={DataStore} navigation={this.props.navigation}>
         <View style={styles.container}>
-        	<Search />
+          <Search />
         </View>
       </Provider>
-    );
+    )
   }
 }
 
@@ -27,4 +37,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export {App as default};
+const AppNavigator = StackNavigator({
+  Home: { screen: App },
+  MovieScreen: {screen: MovieScreen}
+});
+
+
+
+export {AppNavigator as default};

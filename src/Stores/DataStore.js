@@ -7,6 +7,7 @@ class DataStore{
 	@observable wishList = [];
 	@observable viewedList = [];
 	@observable movieResults = [];
+	@observable selectedMovie = undefined;
 
 	constructor() {
 		autorunAsync(async () => {
@@ -19,6 +20,10 @@ class DataStore{
 
 	@action updateSearchText = (newText) => {
 		this.searchText = newText;
+	}
+
+	@action setMovie = (movie) => {
+		this.selectedMovie = movie;
 	}
 
 }

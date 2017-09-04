@@ -17,7 +17,8 @@ class Search extends Component {
           onUpdateText={this.props.dataStore.updateSearchText}
           text={this.props.dataStore.searchText} />
       	<ResultsList
-          movies={this.props.dataStore.movieResults} />
+          movies={this.props.dataStore.movieResults}
+          setMovie={this.props.dataStore.setMovie} />
       </View>
     );
   }

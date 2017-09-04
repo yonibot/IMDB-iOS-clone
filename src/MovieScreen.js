@@ -4,13 +4,14 @@ import {
   View,
   Text
 } from 'react-native';
+import {inject, observer} from 'mobx-react';
+import DataStore from './Stores/DataStore';
 
 class MovieScreen extends Component {
   render() {
-  	debugger;
     return (
       <View style={styles.container}>
-        <Text>ID: { this.props.navigation.state.params.id}</Text>
+        <Text>ID: {DataStore.selectedMovie.id}</Text>
       </View>
     );
   }

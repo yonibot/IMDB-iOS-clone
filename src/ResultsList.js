@@ -6,9 +6,15 @@ import {
   FlatList,
 } from 'react-native';
 import MovieItem from './MovieItem';
+import {inject, observer} from 'mobx-react';
 
-
+@inject('dataStore', 'navigation') @observer
 class ResultsList extends Component {
+  setMovie = (item) => {
+    this.props.dataStore.setMovie(item);
+    this.props.navigation.navigate('MovieScreen');
+  }
+
   render() {
     console.log(this.props.movies);
     return (
@@ -18,7 +24,11 @@ class ResultsList extends Component {
             return {...x, key: x.id}
             })}
           renderItem={(i=>{
-            return <MovieItem item={i.item} />
+            return (
+              <MovieItem 
+                item={i.item} 
+                setMovie={this.setMovie} />
+            )
           })}
         />
       </View>
