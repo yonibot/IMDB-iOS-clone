@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import {inject, observer} from 'mobx-react';
 import DataStore from './Stores/DataStore';
+import Trailer from './components/Trailer';
+
 
 @observer
 class MovieScreen extends Component {
@@ -13,17 +15,22 @@ class MovieScreen extends Component {
     title: DataStore.selectedMovie ? DataStore.selectedMovie.title : 'Movie' 
   }
 
-  componentDidMount() {
-    DataStore.fetchFullMovieDetails(DataStore.selectedMovie.id);
+  async componentDidMount() {
+    await DataStore.fetchFullMovieDetails(DataStore.selectedMovie.id);
   }
 
   render() {
     const movie = DataStore.selectedMovie;
     return (
       <View style={styles.container}>
-        <Text>ID: {movie.id}</Text>
-        <Text>UUID: {movie.uuid}</Text>
-        <Text>Trailer URL: {movie.trailerUrl}</Text>
+        <Trailer 
+          movie={movie} />
+        {/* <Synopis
+          movie={movie} />
+        <Ratings
+          movie={movie} />
+        <Recommendations
+          movies={} /> */}
       </View>
     );
   }
@@ -31,8 +38,11 @@ class MovieScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFF',
+    flex: 1
   },
+  trailer: {
+    flex: 0.3
+  }
 });
 
 export {MovieScreen as default};

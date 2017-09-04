@@ -12,23 +12,24 @@ class DataStore{
 	@observable querying = false;
 
 	constructor() {
-		autorunAsync(async () => {
-			this.querying = true;
-			const results = await TmdbClient.fetchMovies(this.searchText);
-			if (results !== undefined) {
-				this.movieResults = [];
-				for (const result of results) {
-					newMovie = new Movie(result);
-					this.movieResults.push(newMovie);
+			autorunAsync(async () => {
+				if (this.searchText) {
+					this.querying = true;
+					const results = await TmdbClient.fetchMovies(this.searchText);
+					if (results !== undefined) {
+						this.movieResults = [];
+						for (const result of results) {
+							newMovie = new Movie(result);
+							this.movieResults.push(newMovie);
+						}
+					}
+					this.querying = false;
 				}
-			}
-			this.querying = false;
-		}, 2000);
+			}, 2000);
 	}
 
 	@action fetchFullMovieDetails = async (id) => {
 		const movie = await TmdbClient.fetchMovie(this.selectedMovie.id);
-		console.log(movie);
 		this.selectedMovie = new Movie(movie);
 	}
 

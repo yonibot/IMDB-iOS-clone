@@ -6,9 +6,9 @@ class Movie {
 	}
 
 	get trailerUrl() {
-		if (this.videos) {
+		if (this.videos.results.length > 0) {
 			const trailer = this.videos.results[0];
-			return `https://www.youtube.com/watch?v=${trailer.key}`
+			return `https://www.youtube.com/embed/${trailer.key}`
 		}
 	}
 }
