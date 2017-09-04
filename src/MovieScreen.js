@@ -8,6 +8,10 @@ import {inject, observer} from 'mobx-react';
 import DataStore from './Stores/DataStore';
 
 class MovieScreen extends Component {
+  static navigationOptions = {
+    title: DataStore.selectedMovie ? DataStore.selectedMovie.title : 'Movie' 
+  }
+
   render() {
     return (
       <View style={styles.container}>

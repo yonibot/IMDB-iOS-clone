@@ -8,13 +8,16 @@ class DataStore{
 	@observable viewedList = [];
 	@observable movieResults = [];
 	@observable selectedMovie = undefined;
+	@observable querying = false;
 
 	constructor() {
 		autorunAsync(async () => {
+			this.querying = true;
 			const results = await TmdbClient.fetchMovies(this.searchText);
 			if (results !== undefined) {
 				this.movieResults = results;
 			}
+			this.querying = false;
 		}, 2000);
 	}
 
