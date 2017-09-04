@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
   inputBox: {
     backgroundColor: 'white',
     opacity: 0.5,
-    height: 40,
     fontSize: 15,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    height: '100%'
   }
 });
 
